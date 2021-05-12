@@ -5,7 +5,7 @@ import Head from "next/head"
 
 const Warriors = () => {
 
-    const [height, setHeight] = useState(0)
+    const [height, setHeight] = useState(1000)
     const [warriors, setWarriors] = useState([
         {
             name: 'Vaishnavi Bhardwaj',

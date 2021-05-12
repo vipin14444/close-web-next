@@ -23,7 +23,7 @@ export const getServerSideProps = async () => {
 }
 
 const Explore = ({ posts, next }) => {
-    const [height, setHeight] = useState(0)
+    const [height, setHeight] = useState(1000)
     const [postList, setPostList] = useState([])
     const [nextUrl, setNextUrl] = useState('')
 
