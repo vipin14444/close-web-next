@@ -1,22 +1,32 @@
 import styled from "styled-components"
-import { ContentWrapper, Footer, Header } from '../../components/Components'
+import { ContentWrapper, Footer, Header, Heading, Warrior } from '../../components/Components'
 import { useEffect, useState } from 'react'
 
-export const getStaticProps = async () => {
-    const url = 'https://jsonplaceholder.typicode.com/users'
-    const res = await fetch(url)
-    const data = await res.json()
-
-    return {
-        props: {
-            warriors: data
-        }
-    }
-}
-
-const Warriors = ({ warriors }) => {
+const Warriors = () => {
 
     const [height, setHeight] = useState(0)
+    const [warriors, setWarriors] = useState([
+        {
+            name: 'Vaishnavi Bhardwaj',
+            city: 'New Delhi'
+        },
+        {
+            name: 'Tanya Dhingra',
+            city: 'Gurgaon'
+        },
+        {
+            name: 'AaNand Shekhar',
+            city: 'New Delhi'
+        },
+        {
+            name: 'Mohit Manuja',
+            city: 'Gurgaon'
+        },
+        {
+            name: 'Vipin Sharma',
+            city: 'Gurgaon'
+        },
+    ])
 
     useEffect(() => {
         setHeight(window.innerHeight)
@@ -27,11 +37,20 @@ const Warriors = ({ warriors }) => {
             <Header light />
 
             <Wrapper style={{ minHeight: `${height}px` }}>
-                {
-                    warriors.map(item => (
-                        <p key={item.id}>{item.name}</p>
-                    ))
-                }
+                <Heading>Warriors</Heading>
+                <List>
+                    {
+                        warriors.map((item, idx) => (
+                            <li>
+                                <Warrior
+                                    key={idx}
+                                    name={item.name}
+                                    city={item.city}
+                                />
+                            </li>
+                        ))
+                    }
+                </List>
             </Wrapper>
 
             <Footer light />
@@ -43,3 +62,19 @@ export default Warriors
 
 const Container = styled.div``
 const Wrapper = styled(ContentWrapper)``
+const List = styled.ul`
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    list-style: none;
+
+    li {
+        width: 100%;
+        min-width: 30ch;
+
+        @media screen and (min-width: 768px) {
+            width: unset;
+        }
+    }
+`

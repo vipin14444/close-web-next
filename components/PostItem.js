@@ -58,7 +58,7 @@ const PostItem = ({ data }) => {
 
             <PostActions>
                 <Action href='#'>Start Conversation</Action>
-                <Action href='#'>Open in App</Action>
+                <Action href='com.nearme.closeapp://post/1'>Open in App</Action>
                 <Action href='#'>Share</Action>
             </PostActions>
         </Container>
@@ -134,6 +134,11 @@ const Tag = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    &::selection {
+        color: white;
+        background: ${themeVariable.colPrimaryDark};
+    }
 `
 
 const PostTitle = styled.h3`

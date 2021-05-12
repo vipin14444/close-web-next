@@ -1,8 +1,8 @@
 import styled from "styled-components"
 
-const Heading = ({ children }) => {
+const Heading = ({ children, className }) => {
     return (
-        <HeadingBody>{children}</HeadingBody>
+        <HeadingBody className={className}>{children}</HeadingBody>
     )
 }
 

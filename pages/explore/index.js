@@ -6,7 +6,7 @@ import Head from 'next/head'
 
 export const getServerSideProps = async () => {
 
-    const firstReqLink = '/v1/posts?lastPostTime=1620525709476&limit=2&intent=NEED_HELP';
+    const firstReqLink = '/v1/posts?lastPostTime=1620525709476&limit=5&intent=NEED_HELP';
     const url = `${clientApiBaseUrl}/posts`
     const res = await fetch(url, { method: 'POST', body: JSON.stringify({ url: firstReqLink }) })
 
@@ -66,7 +66,7 @@ const Explore = ({ posts, next }) => {
 
             <Wrapper style={{ minHeight: `${height}px` }}>
 
-                <Heading>Posts you might like</Heading>
+                <Heading>People looking for help / People looking to help</Heading>
 
                 <PostList postList={postList} />
 

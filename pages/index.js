@@ -1,11 +1,10 @@
 import styled from "styled-components"
 import { Header } from "../components/Components"
-import { useRouter } from 'next/router'
-import PlayStoreIcon from '../assets/playstore.svg'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import Head from "next/head"
 import { themeVariable } from '../config/ThemeConfig'
 import { Footer } from "../components/Components"
+import DownloadAppButton from "../components/DownloadAppButton"
 
 const appName = 'CloseApp'
 const appDescriptionTitle = 'Location Based Covid Relief App'
@@ -13,13 +12,7 @@ const appDescriptionMain = 'CloseApp is a location-based social networking platf
 
 const Home = () => {
 
-    const router = useRouter()
-
-    const [height, setHeight] = useState(0)
-
     useEffect(() => {
-        setHeight(window.innerHeight)
-
         document.body.classList.add('custom-scroll-bar')
 
         // This will be fired when component unmounts
@@ -29,7 +22,7 @@ const Home = () => {
     }, [])
 
     return (
-        <Container style={{ minHeight: `${height}px` }}>
+        <Container>
             <Head>
                 <title>CloseApp - Connect with people near you!</title>
             </Head>
@@ -43,13 +36,16 @@ const Home = () => {
                         <h3>{appDescriptionTitle}</h3>
                         <p>{appDescriptionMain}</p>
                         <CallToActionContainer>
-                            <a className='download' href='https://we.tl/t-bRvWY6pN7y'> <PlayStoreIcon /> Download Now </a>
+                            <DownloadAppButton />
                         </CallToActionContainer>
 
                         <ActionLinksContainer>
                             <a href="https://forms.gle/sm7Tew38ZQdSGWmK6">Register For Volunteer</a>
                             <div className="separator"></div>
-                            <a href='/warriors' onClick={(e) => { e.preventDefault(); router.push('/warriors') }}>Check Warriors List</a>
+                            <a href='/warriors'>Check Warriors List</a>
+                        </ActionLinksContainer>
+                        <ActionLinksContainer>
+                            <a href='/explore' onClick={(e) => { }}>People looking for help</a>
                         </ActionLinksContainer>
                     </ContentSection>
 
