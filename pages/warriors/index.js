@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { ContentWrapper, Footer, Header, Heading, Warrior } from '../../components/Components'
 import { useEffect, useState } from 'react'
+import Head from "next/head"
 
 const Warriors = () => {
 
@@ -34,6 +35,10 @@ const Warriors = () => {
 
     return (
         <Container>
+            <Head>
+                <title>CloseApp - Warriors</title>
+            </Head>
+
             <Header light />
 
             <Wrapper style={{ minHeight: `${height}px` }}>

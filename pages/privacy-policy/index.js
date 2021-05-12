@@ -1,10 +1,16 @@
 import styled from "styled-components"
 import { ContentWrapper, Header, Footer, Heading } from "../../components/Components"
 import { themeVariable } from "../../config/ThemeConfig"
+import Head from 'next/head'
 
 const PrivacyPolicy = () => {
     return (
         <Container>
+
+            <Head>
+                <title>CloseApp - Privacy Policy</title>
+            </Head>
+
             <Header light />
 
             <Wrapper>

@@ -59,7 +59,7 @@ const Explore = ({ posts, next }) => {
     return (
         <Container>
             <Head>
-                <title>People looking for help</title>
+                <title>CloseApp - People looking for help</title>
             </Head>
 
             <Header light />
