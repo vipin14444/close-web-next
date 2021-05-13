@@ -26,8 +26,8 @@ const PostItem = ({ data }) => {
         e.preventDefault()
         if (navigator.share) {
             navigator.share({
-                title: 'Title',
-                text: `Description`
+                title: postTitle,
+                text: postDescription
             }).then(() => {
                 console.log('Successful share')
             }).catch((error) => {
