@@ -35,21 +35,23 @@ const Explore = ({ posts, next }) => {
     }, [])
 
     const fetchMoreData = () => {
-        const url = `${clientApiBaseUrl}/posts`
+        if (nextUrl) {
+            const url = `${clientApiBaseUrl}/posts`
 
-        fetch(url, { method: 'POST', body: JSON.stringify({ url: nextUrl }) }).then(res => {
-            res.json().then(data => {
-                const postListNew = data?.data?.content_list
-                const fetchNextNew = data?.data?.next
+            fetch(url, { method: 'POST', body: JSON.stringify({ url: nextUrl }) }).then(res => {
+                res.json().then(data => {
+                    const postListNew = data?.data?.content_list
+                    const fetchNextNew = data?.data?.next
 
-                const updatedPostList = []
-                updatedPostList.push(...postList)
-                updatedPostList.push(...postListNew)
+                    const updatedPostList = []
+                    updatedPostList.push(...postList)
+                    updatedPostList.push(...postListNew)
 
-                setPostList(updatedPostList)
-                setNextUrl(fetchNextNew)
+                    setPostList(updatedPostList)
+                    setNextUrl(fetchNextNew)
+                })
             })
-        })
+        }
     }
 
     return (

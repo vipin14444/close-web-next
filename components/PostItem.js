@@ -1,24 +1,50 @@
 import styled from "styled-components"
 import { themeVariable } from "../config/ThemeConfig"
+import CopyToClipboard from "../utils/CopyToClipboard"
 import Heading from "./Heading"
 
 const PostItem = ({ data }) => {
 
-    const userImage = data?.data?.user_data?.image_url
-    const userName = data?.data?.user_data?.name || ''
-    const userLocation = data?.data?.location?.text || ''
-    const createdOn = data?.data?.created || ''
-    const category = data?.data?.category?.cat_name || ''
-    const postTitle = data?.data?.title
-    const postDescription = data?.data?.description
-    const postMedia = data?.data?.media?.[0]?.link_data?.mid
-    const reactionCount = data?.data?.reactions?.intendedReaction?.count
+    const _data = data?.data
+    const userImage = _data?.user_data?.image_url
+    const userName = _data?.user_data?.name || ''
+    const userLocation = _data?.location?.text || ''
+    const createdOn = _data?.created || ''
+    const category = _data?.category?.cat_name || ''
+    const postTitle = _data?.title
+    const postDescription = _data?.description
+    const postMedia = _data?.media?.[0]?.link_data?.mid
+    const reactionCount = _data?.reactions?.intendedReaction?.count
     const reactionCountText = (
-        data?.data?.reactions?.intendedReaction?.count === 1 ?
-            (data?.data?.reactions?.intendedReaction?.postPluralText ? data?.data?.reactions?.intendedReaction?.postPluralText.replace('%s', reactionCount) : '')
+        _data?.reactions?.intendedReaction?.count === 1 ?
+            (_data?.reactions?.intendedReaction?.postPluralText ? _data?.reactions?.intendedReaction?.postPluralText.replace('%s', reactionCount) : '')
             :
-            (data?.data?.reactions?.intendedReaction?.postText ? data?.data?.reactions?.intendedReaction?.postText.replace('%s', reactionCount) : '')
+            (_data?.reactions?.intendedReaction?.postText ? _data?.reactions?.intendedReaction?.postText.replace('%s', reactionCount) : '')
     )
+
+    const sharePost = (e) => {
+        e.preventDefault()
+        if (navigator.share) {
+            navigator.share({
+                title: 'Title',
+                text: `Description`
+            }).then(() => {
+                console.log('Successful share')
+            }).catch((error) => {
+                console.log('Error sharing', error)
+            });
+        } else {
+            //Web share API not available / Site is opened in a browser which doesnt support Web share api
+            console.log('Web Share API not available')
+        }
+    }
+
+    const copyLink = (e) => {
+        e.preventDefault()
+        const url = 'ABC'
+        CopyToClipboard(url)
+        alert(`Url copied to clipboard : ${url}`)
+    }
 
     return (
         <Container>
@@ -57,9 +83,10 @@ const PostItem = ({ data }) => {
             }
 
             <PostActions>
-                <Action href='#'>Start Conversation</Action>
-                <Action href='com.nearme.closeapp://post/1'>Open in App</Action>
-                <Action href='#'>Share</Action>
+                <Action href={`https://www.closeapp.in/post/${data?.id}`}>Open in App</Action>
+                <Action href='#' onClick={sharePost}>Share</Action>
+                <Action href='#' onClick={copyLink}>Copy Link</Action>
+                {/* <Action href={`http://localhost:3000/post/${data?.id}`}>Open in App</Action> */}
             </PostActions>
         </Container>
     )
