@@ -1,12 +1,13 @@
 import { baseUrl, clientApiBaseUrl } from "../../config/GlobalConfig"
 import { Header, Footer, ContentWrapper, PostList, Heading } from '../../components/Components'
 import styled from "styled-components"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import Head from 'next/head'
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export const getServerSideProps = async () => {
 
-    const firstReqLink = '/v1/posts?lastPostTime=1620525709476&limit=5&intent=NEED_HELP';
+    const firstReqLink = '/v1/posts?intent=NEED_HELP';
     const url = `${clientApiBaseUrl}/posts`
     const res = await fetch(url, { method: 'POST', body: JSON.stringify({ url: firstReqLink }) })
 
@@ -28,17 +29,12 @@ const Explore = ({ posts, next }) => {
     const [nextUrl, setNextUrl] = useState('')
 
     useEffect(() => {
+        setPostList(posts)
+        setNextUrl(next)
         setHeight(window.innerHeight)
     }, [])
 
-    useEffect(() => {
-        setPostList(posts)
-        setNextUrl(next)
-    }, [posts, next])
-
-    const loadNext = (e) => {
-        e.preventDefault();
-
+    const fetchMoreData = () => {
         const url = `${clientApiBaseUrl}/posts`
 
         fetch(url, { method: 'POST', body: JSON.stringify({ url: nextUrl }) }).then(res => {
@@ -68,11 +64,15 @@ const Explore = ({ posts, next }) => {
 
                 <Heading>People looking for help / People looking to help</Heading>
 
-                <PostList postList={postList} />
+                <InfiniteScroll
+                    dataLength={postList.length}
+                    next={fetchMoreData}
+                    hasMore={(nextUrl && nextUrl.length)}
+                    loader={<h4>Loading...</h4>}
+                >
+                    <PostList postList={postList} />
+                </InfiniteScroll>
 
-                {
-                    nextUrl ? <a style={{ marginTop: '2rem' }} href="#" onClick={loadNext}>Load More</a> : null
-                }
             </Wrapper>
 
             <Footer light />
@@ -87,4 +87,9 @@ const Wrapper = styled(ContentWrapper)`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .infinite-scroll-component__outerdiv {
+        max-width: 70ch;
+        width: 100%;
+    }
 `

@@ -4,13 +4,37 @@ import AppIcon from '../assets/Logo/logo-rect-invert.svg'
 import AppIconLight from '../assets/Logo/logo-rect.svg'
 import { useRouter } from 'next/router'
 import { themeVariable } from "../config/ThemeConfig"
+import Head from 'next/head'
+import { useEffect, useState } from "react"
 
 const Footer = ({ children, light }) => {
 
+    const [location, setLocation] = useState({})
+
     const router = useRouter()
+
+    useEffect(() => {
+
+        if (!children) {
+            getLocation()
+        }
+
+    }, [])
+
+    const getLocation = () => {
+        fetch('https://geolocation-db.com/json/').then(res => {
+            res.json().then(data => {
+                setLocation(data)
+            })
+        })
+    }
 
     return (
         <Container light={light}>
+            <Head>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+            </Head>
+
             <Wrapper>
                 <Section>
 
