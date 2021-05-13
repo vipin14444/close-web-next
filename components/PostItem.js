@@ -43,9 +43,9 @@ const PostItem = ({ data }) => {
 
     const copyLink = (e) => {
         e.preventDefault()
-        const url = 'ABC'
+        const url = `https://www.closeapp.in/post/${data?.id}`
         CopyToClipboard(url)
-        alert(`Url copied to clipboard : ${url}`)
+        alert(`Url copied to clipboard: ${url}`)
     }
 
     return (
