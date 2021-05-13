@@ -1,7 +1,7 @@
-import { baseUrl, clientApiBaseUrl } from "../../config/GlobalConfig"
-import { Header, Footer, ContentWrapper, PostList, Heading } from '../../components/Components'
+import { clientApiBaseUrl } from "../../config/GlobalConfig"
+import { Header, Footer, ContentWrapper, PostList, Heading, Spinner, ListEndMessage } from '../../components/Components'
 import styled from "styled-components"
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState } from "react"
 import Head from 'next/head'
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -68,7 +68,8 @@ const Explore = ({ posts, next }) => {
                     dataLength={postList.length}
                     next={fetchMoreData}
                     hasMore={(nextUrl && nextUrl.length)}
-                    loader={<h4>Loading...</h4>}
+                    loader={<Spinner />}
+                    endMessage={<ListEndMessage />}
                 >
                     <PostList postList={postList} />
                 </InfiniteScroll>

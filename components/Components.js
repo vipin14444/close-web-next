@@ -4,6 +4,8 @@ import ContentWrapper from './ContentWrapper'
 import PostList from './PostList'
 import Heading from './Heading'
 import Warrior from './Warrior'
+import Spinner from './Spinner'
+import ListEndMessage from './ListEndMessage'
 
 export {
     Header,
@@ -11,5 +13,7 @@ export {
     Footer,
     PostList,
     Heading,
-    Warrior
+    Warrior,
+    Spinner,
+    ListEndMessage
 }
